@@ -1,6 +1,6 @@
 # Chapter 4 —— 认识IoC
 
-
+我们先从前面提到的"空洞"的教程说起，实现一个简单的Demo，来认识IoC——控制反转(Inversion of Control)
 
 ---
 

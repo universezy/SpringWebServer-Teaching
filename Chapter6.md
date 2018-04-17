@@ -2,7 +2,7 @@
 
 ## 一、 源码
 
-[SpringWebServer-Teaching](https://github.com/frogfans/SpringWebServer-Teaching)
+位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹。
 
 ---
 ## 二、 总结
@@ -14,6 +14,11 @@
 - 本文教程仅针对Java Web后端开发的一个简单模板，还有很多重要的知识点，例如拦截器、连接池、任务调度等未在本文提供，请读者根据自己项目需求另外学习。
 
 - 网上的教学资源很有限，并且有些已经过时了，有的简直胡言乱语，读者应该辩证性地去阅读理解，而不是盲目照葫芦画瓢，要有质疑精神。
+
+---
+## 三、 参考文献
+
+- [谈谈对Spring IOC的理解](https://blog.csdn.net/qq_22654611/article/details/52606960)
 
 ---
 

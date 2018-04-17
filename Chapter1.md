@@ -68,7 +68,7 @@ public class HelloController{
 
 网上搜"Spring教程"，各种各样的资源中，有讲Spring框架的，有讲MVC模型的，有讲IoC的，有讲Bean的，有讲生命周期的，花大量时间全部过一遍后，再回到自己工程，无从下手啊，没有注解API文档，不知道怎么用，web.xml没有规范模板，不知道要设置哪些参数，搞半天不会还是不会，网上的内容说得天花乱坠，也没有落实到点子上——实现一个具体的纯后端Demo。
 
-一会儿教你写controller，一会儿写Service，一会儿写一大堆xml，配置各种不认识的标签，最后连xml文件往哪里丢都不知道，Tomcat一启动就是鲜红的Exception。
+一会儿教你写Controller，一会儿写Service，一会儿写一大堆xml，配置各种不认识的标签，最后连xml文件往哪里丢都不知道，Tomcat一启动就是鲜红的Exception。
 
 ---
 
