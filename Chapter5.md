@@ -5,13 +5,13 @@
 ---
 ## 一、 从简易的Demo开始
 
-### 1.
+### 1. 创建工程
 
 eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的另一篇教程《[使用Maven构建Java Web工程的教程](https://blog.csdn.net/zy13608089849/article/details/79810278)》。
 
 为了便于读者和本文对照，我建议读者将"Group Id"设置为"com.example"，"Artifact Id"设为"springdemo"，"Package"会自动生成。
 
-### 2.
+### 2. 依赖资源
 
 然后在pom.xml中依赖Spring相关、MySQL相关、JDBC相关，JSON相关的jar包，得到这样：
 ```
@@ -95,7 +95,7 @@ eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的�
 </project>
 ```
 
-### 3.
+### 3. 实现Controller
 
 在src/main/java这个文件夹下创建一个名为"com.example.springdemo"的package。
 
@@ -126,7 +126,7 @@ public class DemoController {
 }
 ```
 
-### 4.
+### 4. 配置xml文件
 
 找到"/webapp/WEB-INF"下的web.xml文件，定义一个DispatcherServlet，这里用框架自带的：
 ```
@@ -180,6 +180,22 @@ public class DemoController {
 <context:annotation-config />
 ```
 
+完整示例：
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+
+</beans>
+```
+
 写了这个加载bean的文件，但是容器不知道要去调用这个文件啊，所以又回到web.xml中，加上这两段：
 ```
 <context-param>
@@ -231,54 +247,60 @@ public class DemoController {
 ```
 
 工程目录结构为：
-![](ch5-1.png)
 
-### 5.
+![](assets/ch5-1.jpg)
+
+### 5. 运行
 
 工程右键，Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入"http://localhost:8080/springdemo/"，此时显示的便是"/webapp"目录下的index.jsp文件的页面。
 
-![](ch5-2.jpg)
+![](assets/ch5-2.jpg)
 
 我们尝试输入刚才在Controller中定义的请求处理对应的url："http://localhost:8080/springdemo/demo/test"
 
 控制台输出了方法中的内容：
 
-![](ch5-3.jpg)
+![](assets/ch5-3.jpg)
 
 会报错404找不到页面，这是必然的，因为我们没有写这个url对应的页面，我们只需要有一个可以处理请求的入口就行了。
 
 ---
-## 二、 返回服务端的响应
+## 二、 接收前端请求
 
 
 
 ---
-## 三、 按照MVC架构分包
+## 三、 返回服务端的响应
 
 
 
 ---
-## 四、 使用注解来组合模块
+## 四、 按照MVC架构分包
 
 
 
 ---
-## 五、 编写数据库
+## 五、 使用注解来组合模块
 
 
 
 ---
-## 六、 定义接口文档
+## 六、 编写数据库
 
 
 
 ---
-## 七、 测试接口
+## 七、 定义接口文档
 
 
 
 ---
-## 八、 总结回顾
+## 八、 测试接口
+
+
+
+---
+## 九、 总结回顾
 
 
 
