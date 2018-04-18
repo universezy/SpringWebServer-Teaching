@@ -7,7 +7,7 @@
 
 ### 1. 创建工程
 
-eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的另一篇教程《[使用Maven构建Java Web工程的教程](https://blog.csdn.net/zy13608089849/article/details/79810278)》。
+eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的另一篇教程《[使用Maven构建Java Web工程的教程](https://github.com/frogfans/MavenBuildJavaWeb-Teaching)》。
 
 为了便于读者和本文对照，我建议读者将"Group Id"设置为"com.example"，"Artifact Id"设为"springdemo"，"Package"会自动生成。
 
@@ -149,7 +149,7 @@ public class DemoController {
 </servlet-mapping>
 ```
 
-负责请求分发的servlet定义好了，我们还要告诉它处理这些请求的Controller在哪里，因此我们需要创建一个用这里的servlet名称为前缀，"-servlet"为后缀的xml文件，并在里面告诉容器去哪里找Controller：
+负责请求分发的servlet定义好了，我们还要告诉它处理这些请求的Controller在哪里，因此我们需要创建一个用这里的servlet名称为前缀，"-servlet"为后缀的xml文件，即"demo-servlet.xml"，并在里面告诉容器去哪里找Controller：
 ```
 <context:component-scan base-package="com.example.springdemo" />
 ```
@@ -252,11 +252,13 @@ public class DemoController {
 
 ### 5. 运行
 
-工程右键，Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入"http://localhost:8080/springdemo/"，此时显示的便是"/webapp"目录下的index.jsp文件的页面。
+工程右键，Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入：http://localhost:8080/springdemo/。
 
 ![](assets/ch5-2.jpg)
 
-我们尝试输入刚才在Controller中定义的请求处理对应的url："http://localhost:8080/springdemo/demo/test"
+此时显示的便是"/webapp"目录下的index.jsp文件的页面。
+
+我们尝试输入刚才在Controller中定义的请求处理对应的url：http://localhost:8080/springdemo/demo/test
 
 控制台输出了方法中的内容：
 
