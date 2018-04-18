@@ -65,6 +65,7 @@
 **Controller** 需要使用@ResponseBody注解告诉Spring框架它要返回响应体，然后将来自Service的结果通过DispatcherServlet传给前端。
 
 ---
+---
 
 - [首页](README.md)
 
@@ -76,6 +77,6 @@
 
 - Chapter 4 —— 剖析SpringMVC架构
 
-- [Chapter 5 —— 改造工程](Chapter5.md)
+- [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)

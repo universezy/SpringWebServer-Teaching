@@ -52,6 +52,7 @@ Spring是一个大的框架，也是一个容器。
 SpringMVC是一个开发架构，MVC知道吧，model，view，controller，SpringMVC是一个基于MVC设计模式的应用架构，类似的还有structs等，它们不能单独使用，需要在Spring容器中运行，将业务分成不同的模块，降低耦合度，提高可维护性等。
 
 ---
+---
 
 - [首页](README.md)
 
@@ -63,6 +64,6 @@ SpringMVC是一个开发架构，MVC知道吧，model，view，controller，Spri
 
 - [Chapter 4 —— 剖析SpringMVC架构](Chapter4.md)
 
-- [Chapter 5 —— 改造工程](Chapter5.md)
+- [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)

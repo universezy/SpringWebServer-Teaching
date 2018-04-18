@@ -73,7 +73,7 @@ public class IoCDemo {
 }
 ```
 
-看到这里，读者便会质疑，你这不就类似于工程模式？还不是在new，只是省去了setter，是的，我们先通过"将内部属性用外部xml文件来配置"的方式进行了第一步优化，这就相当于把控制权交给了Framework，这里用到的Java的反射机制。接下来是第二步，我们使用"@Autowired"注解，同样的，注解本质上也是使用的反射机制：
+看到这里，读者便会质疑，你这不就类似于工厂模式？还不是在new，只是省去了setter，是的，我们先通过"将内部属性用外部xml文件来配置"的方式进行了第一步优化，这就相当于把控制权交给了Framework，这里用到的Java的反射机制。接下来是第二步，我们使用"@Autowired"注解，同样的，注解本质上也是使用的反射机制：
 ```
 package com.zengyu.demo;
 
@@ -96,6 +96,7 @@ public class IoCDemo {
 使用IoC，我们只需要声明即可使用对象的实例，省去了中间所有的复杂操作，使类不再过度依赖类，进行高度解耦。另一方面，Spring Framework将IoC发挥出了非常棒的效果，我们可以仅仅通过几个注解来告知Framework如何把几个对象组装在一起，来完成我们的服务器。
 
 ---
+---
 
 - [首页](README.md)
 
@@ -107,6 +108,6 @@ public class IoCDemo {
 
 - [Chapter 4 —— 剖析SpringMVC架构](Chapter4.md)
 
-- [Chapter 5 —— 改造工程](Chapter5.md)
+- [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)

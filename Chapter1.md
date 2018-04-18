@@ -16,7 +16,7 @@
 ---
 ## 三、 网上教程答非所需
 
-作者我学习Spring是为了做纯后端开发，配合前端做接口和数据库处理。而网上教程实现的整体功能往往根本不是纯业务请求处理。例如：
+作者我学习Spring是为了做纯后端开发，配合前端做接口和数据库处理。而网上教程实现的整体功能往往不是纯业务请求处理。例如：
 
 ### 1.
 ```
@@ -72,6 +72,7 @@ public class HelloController{
 一会儿教你写Controller，一会儿写Service，一会儿写一大堆xml，配置各种不认识的标签，最后连xml文件往哪里丢都不知道，Tomcat一启动就是鲜红的Exception。
 
 ---
+---
 
 - [首页](README.md)
 
@@ -83,6 +84,6 @@ public class HelloController{
 
 - [Chapter 4 —— 剖析SpringMVC架构](Chapter4.md)
 
-- [Chapter 5 —— 改造工程](Chapter5.md)
+- [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)
