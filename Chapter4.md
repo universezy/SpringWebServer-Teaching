@@ -4,7 +4,7 @@
 
 ## 一、 架构图
 
-![](assets/springMVC.png)
+![](assets/ch4-1.png)
 
 ---
 ## 二、 剖析

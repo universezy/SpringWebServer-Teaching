@@ -252,7 +252,7 @@ public class DemoController {
 
 ### 5. 运行
 
-工程右键，Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入：http://localhost:8080/springdemo/。
+工程右键，Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入：http://localhost:8080/springdemo/
 
 ![](assets/ch5-2.jpg)
 
