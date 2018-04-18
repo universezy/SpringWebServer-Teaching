@@ -20,6 +20,10 @@
 
 - [谈谈对Spring IOC的理解](https://blog.csdn.net/qq_22654611/article/details/52606960)
 
+- [servlet配置load-on-startup的作用](https://blog.csdn.net/xuke6677/article/details/44752207)
+
+- [Spring中<context:annotation-config/>的作用](https://blog.csdn.net/chenlong220192/article/details/46723561)
+
 ---
 
 - [首页](README.md)
