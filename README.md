@@ -17,9 +17,9 @@
 
 - [Chapter 2 —— 准备工作](Chapter2.md)
 
-- [Chapter 3 —— 剖析SpringMVC架构](Chapter3.md)
+- [Chapter 3 —— 认识IoC](Chapter3.md)
 
-- [Chapter 4 —— 实现一个小Demo](Chapter4.md)
+- [Chapter 4 —— 剖析SpringMVC架构](Chapter4.md)
 
 - [Chapter 5 —— 改造工程](Chapter5.md)
 

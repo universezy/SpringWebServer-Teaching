@@ -1,66 +1,99 @@
-# Chapter 3 —— 剖析SpringMVC架构
+# Chapter 3 —— 认识IoC
 
-## 一、 架构图
+在开始学习SpringMVC架构之前，我们先来认识IoC——控制反转(Inversion of Control)。
 
-![](assets/springMVC.png)
+何为IoC？或者说，怎么理解控制反转，由字面翻译意思：把控制权反过来。
 
----
-## 二、 剖析
+我们通常操作一个对象的过程是：声明-创建(可能还需要初始化设置一大堆参数)-使用，就像这样：
+```
+package com.zengyu.demo;
 
-### 1. 从层次来说
+public class Obj {
+	private int id;
+	private String name;
 
-首先，整个架构大致可以看成一个B/S架构，我们只需关注广义的"S"部分中的"Server"部分。
+	public void setId(int id) {
+		this.id = id;
+	}
 
-服务器端，自上而下，大致分为四个层次：
+	public void setName(String name) {
+		this.name = name;
+	}
 
-- Servlet
-- Controller
-- Service
-- Dao
+	public void doSth() {
+		System.out.println("My id is " + id + " , my name is " + name);
+	}
+}
+```
 
-其中，Servlet层包括DispatcherServlet和Handler Mapping，由Spring框架来完成，但我们需要在xml中对其配置。
+```
+package com.zengyu.demo;
 
-开发者需要完成的是剩下三个层次以及一些相关的xml文件的配置。
+public class IoCDemo {
+	private Obj obj;
 
----
-### 2. 从功能来说
+	public void method() {
+		obj = new Obj();
+		obj.setId(1);
+		obj.setName("IoC Demo");
+		obj.doSth();
+	}
+}
+```
 
-**DispatcherServlet** 可以理解成一个海关，所有的前端请求和后端响应都从这里经过。
+如果我们有五十处甚至一百处都需要使用这个对象，也就是说我们得写五十甚至一百遍的new和调用setter，如果将来我们要修改所有的setter的入参，那么就需要去所有使用对象的地方改代码，如果增加或删除了一些内部属性，也需要去所有地方增加或者删除setter，这简直是灾难！
 
-**Handler Mapping** 是一个出入境大厅的导航图，告诉入境的请求应该往哪里去。
+于是我们就想，如果我们使用的每个实例，命名是一样的，属性也是一样的，为什么不把相同的操作封装起来呢？这就稍微有了工厂模式的意思了，但是，还能不能再简化一下？我们需要一个对象的实例，目的是用它做些什么，而不关心它怎么诞生，怎么初始化，但是现在这个对象的控制权在创建它的地方，就不得不去做这些复杂的事。
 
-**Controller** 则是拿着XXX请求接待处站在门口等候请求的向导，他仅负责把请求带到目的地或者把响应带回出境口。
+于是，IoC的概念便诞生了。我们把对象的生死大权交给容器，这个容器就是Spring容器，由它来负责各种对象的创建和回收，我们只需要在声明对象的时候，告诉容器："喂，这个对象给我来一份。"，具体的代码就像这样：
 
-**Service** 是业务负责人，根据请求去安排相关Dao操作数据库，然后把结果整理或筛选或打包后交给Controller。
+定义实例的属性：
+```
+<bean id="obj" class="com.zengyu.demo.Obj">
+    <property name="id" value="1"/>
+    <property name="name" value="IoC Demo"/>
+</bean>
+```
 
-**Dao** 就是一个个数据库操作员，每一个Dao都负责一大类业务。
+然后使用实例：
+```
+package com.zengyu.demo;
 
-**Model** 对结果进行包装或者转换，以便其他层次能识别分辨这些结果。
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-**web.xml** 是整个Server的管理局，所有的层次都是他说了算。
+public class IoCDemo {
+	private Obj obj;
 
-**applicationContext.xml** 中可以存放各种配置参数信息，例如Dao操作数据库的认证信息：数据库地址、端口、数据库名、账号、密码等。
+	public void method() {
+		ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+		obj = (Obj) context.getBean("obj");
+		obj.doSth();
+	}
+}
+```
 
----
-### 3. 从数据流向来说
+看到这里，读者便会质疑，你这不就类似于工程模式？还不是在new，只是省去了setter，是的，我们先通过"将内部属性用外部xml文件来配置"的方式进行了第一步优化，这就相当于把控制权交给了Framework，这里用到的Java的反射机制。接下来是第二步，我们使用"@Autowired"注解，同样的，注解本质上也是使用的反射机制：
+```
+package com.zengyu.demo;
 
-**DispatcherServlet** 拦截前端请求，然后交给Handler Mapping进行分发。
+import org.springframework.beans.factory.annotation.Autowired;
 
-**Handler Mapping** 是请求信息和Controller的映射关系，按照请求信息，分发给对应的Controller。
+public class IoCDemo {
+	@Autowired
+	private Obj obj;
 
-**Controller** 需要加上@Controller注解，告诉Spring框架这是一个Controller。使用@RequestMapping注解可以设置映射的请求的信息。使用@RequestParam注解可以获取请求包含的参数。然后将请求的数据交给Service处理。
+	public void method() {
+		obj.doSth();
+	}
+}
+```
 
-**Service** 需要加上@Service注解，告诉Spring框架这是一个Service。Service根据收到的数据，选择合适的Dao来处理数据。
+这就完了？是的，这就完了，已经简化地不能再简化了，不过我这里跳过了好几个知识点，只是为了尽可能说明IoC带来的便利性才过早地将注解摆出来，勾起读者的兴趣。后面的内容也是基于注解来优化代码结构的，不再对中间跳过的知识点进行介绍，感兴趣的读者可以参考一些网站上的资源，比如[W3School的教程](https://www.w3cschool.cn/wkspring/f8pc1hae.html)。
 
-**Dao** 需要加上@Repository注解，告诉Spring框架这是一个Dao。Dao根据收到的数据，拿到数据库的认证信息，进行数据库操作，并将结果交给Model进行包装。
+关于IoC，我这里仅介绍了关于创建实例的特性，其他的例如生命周期的管理，作用域等，也带来了极大的便利性，你也可以通过上面的教程链接去扩展学习。
 
-**Model** 将原始结果进行初次处理，包括数据类型的转换、数据组合等，处理完之后交给Dao。
-
-**Dao** 将数据交给Service。
-
-**Service** 把来自一个或多个Dao的数据进行再次处理，然后打包为最后结果交给Controller。
-
-**Controller** 需要使用@ResponseBody注解告诉Spring框架它要返回响应体，然后将来自Service的结果通过DispatcherServlet传给前端。
+使用IoC，我们只需要声明即可使用对象的实例，省去了中间所有的复杂操作，使类不再过度依赖类，进行高度解耦。另一方面，Spring Framework将IoC发挥出了非常棒的效果，我们可以仅仅通过几个注解来告知Framework如何把几个对象组装在一起，来完成我们的服务器。
 
 ---
 
@@ -70,9 +103,9 @@
 
 - [Chapter 2 —— 准备工作](Chapter2.md)
 
-- Chapter 3 —— 剖析SpringMVC架构
+- Chapter 3 —— 认识IoC
 
-- [Chapter 4 —— 认识IoC](Chapter4.md)
+- [Chapter 4 —— 剖析SpringMVC架构](Chapter4.md)
 
 - [Chapter 5 —— 改造工程](Chapter5.md)
 
