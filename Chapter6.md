@@ -2,7 +2,7 @@
 
 ## 一、 源码
 
-位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹。
+位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹，你可以把整个项目clone到本地，然后用eclipse导入工程文件夹来体验。
 
 ---
 ## 二、 总结
@@ -20,7 +20,6 @@
 
 - [谈谈对Spring IOC的理解](https://blog.csdn.net/qq_22654611/article/details/52606960)
 
----
 ---
 
 - [首页](README.md)

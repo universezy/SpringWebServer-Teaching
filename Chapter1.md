@@ -72,7 +72,6 @@ public class HelloController{
 一会儿教你写Controller，一会儿写Service，一会儿写一大堆xml，配置各种不认识的标签，最后连xml文件往哪里丢都不知道，Tomcat一启动就是鲜红的Exception。
 
 ---
----
 
 - [首页](README.md)
 
