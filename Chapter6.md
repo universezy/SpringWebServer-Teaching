@@ -5,7 +5,7 @@
 本教程的示例工程源码位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹，你可以把整个项目clone到本地，然后用eclipse导入工程文件夹来体验。
 
 ---
-## 二、 总结
+## 二、 心得体会
 
 - 时间充足的情况下，网上那些教程还是可以好好看看，参考一些，熟悉那些基本概念、模型、结构。
 

@@ -723,23 +723,77 @@ INSERT INTO demo VALUES(1,'test');
 ---
 ## 七、 定义接口文档
 
+接口文档没有固定的模板，也没有一个统一的标准，但是它有一些必需的：
 
+- Api名称
+- 请求的url
+- 请求的方法
+- 请求的参数键值对
+- 返回的参数键值对
 
+以本教程为例：
+
+> 1.  测试
+>
+> ## Request
+>
+> - url: http://localhost:8080/springdemo/demo/test
+>
+> - method: get
+>
+> - params:
+>
+>|Key|Type|Explain|
+>| :-: | :- | :- |
+>|id|int|编号|
+>
+>- example: http://localhost:8080/springdemo/demo/test?id=1
+>
+>## Response
+>
+>- params:
+>
+>|Key|Type|Explain|
+>| :-: | :- | :- |
+>|id|int|编号|
+>|name|String|名称|
+>
+>- example: {"name":"test","id":1}
 
 ---
 ## 八、 测试接口
 
+在Postman中新建一个名为"springdemo"(一般和工程同名)的Collection。
 
+在Collection中新建一个名为"test"(一般和Controller中的方法同名)的Request。
+
+设置请求方法、url、参数。
+
+点击"Send"，将在"Response"中接收到来自服务器的响应：
+
+![](assets/ch5-7.png)
 
 ---
 ## 九、 可能出现的问题
 
+- 中文乱码：[SpringMVC下后端返回前端出现中文乱码的解决方案](https://blog.csdn.net/zy13608089849/article/details/79856574)
 
+- 前端报CORS错误：[SpringMVC工程解决"CORS 头缺少 'Access-Control-Allow-Origin'"问题](https://blog.csdn.net/zy13608089849/article/details/79931150)
+
+- 服务器端无法接收put请求的参数：[SpringMVC解决无法接收PUT请求的问题](https://blog.csdn.net/zy13608089849/article/details/80006782)
+
+- jdbcTemplate.queryForObject抛出异常：[Spring工程中JDBC抛出"EmptyResultDataAccessException"异常的解决方案](https://blog.csdn.net/zy13608089849/article/details/79891721)
+
+- 服务器端报非法字符异常：[Java Web工程报"Invalid character found in the request target"错误的解决方案](https://blog.csdn.net/zy13608089849/article/details/79908555)
 
 ---
 ## 十、 总结回顾
 
+整个开发过程围绕着SpringMVC的架构，自下而上进行，将不同业务不同功能模块进行解耦，使得工程的层次分明，利于维护更新。
 
+同时对开发者的知识积累要求较高，涉及的范围较广，对初学者也是一次收益很大的扩展机会。
+
+IoC机制贯穿整个工程，几乎处处都有用到。
 
 ---
 
