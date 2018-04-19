@@ -2,13 +2,17 @@ package com.example.springdemo.repository;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.example.springdemo.model.DemoMapper;
 import com.example.springdemo.model.DemoVO;
 import com.example.springdemo.others.Constant;
 
+@Repository(value = "demoDao")
 public class DemoDaoImpl implements DemoDao {
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public int addDemo(int demoId, String demoName) {

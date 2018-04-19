@@ -42,4 +42,4 @@
 
 - Chapter 6 —— 后记
 
-- [Issues - 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
+- [Issues —— 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)

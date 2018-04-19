@@ -26,7 +26,7 @@ public void doGet(HttpServletRequest req, HttpServletResponse response) throws S
 - 集成开发环境Eclipse
 - 项目管理工具Maven
 - 服务器Tomcat
-- 关系型数据库MySQL
+- 关系型数据库MySQL以及可视化工具MySQL Workbench
 - 接口测试工具Postman
 - 接口开发标准RESTful
 
@@ -40,7 +40,7 @@ public void doGet(HttpServletRequest req, HttpServletResponse response) throws S
 如果没有安装Tomcat，可以参考我的另一篇文章《[Ubuntu下搭建Tomcat服务器](https://blog.csdn.net/zy13608089849/article/details/79730550)》
 如果你用的不是Tomcat，也不必担心，你只需会使用你的服务器工具并且让你的工程运行在它上面就行。
 
-如果你使用的不是MySQL，那么你需要在JDBC相关操作时替换为你的数据库的相关设置或方法。
+MySQL Workbench可以在[官网](https://dev.mysql.com/downloads/workbench/)上按照提示进行安装，当然，你也可以仅使用命令行来操作你的数据库。如果你使用的不是MySQL，那么你需要在JDBC相关操作时替换为你的数据库的相关设置或方法。
 
 如果你使用的不是Postman测试工具，这一点对整个项目没有什么影响，测试工具只是起到一个管理、维护API的功能。
 
@@ -71,4 +71,4 @@ SpringMVC是一个开发架构，MVC知道吧，model，view，controller，Spri
 
 - [Chapter 6 —— 后记](Chapter6.md)
 
-- [Issues - 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
+- [Issues —— 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)

@@ -373,9 +373,45 @@ model包存放的是用来对应数据库表的POJO(POJO是非常简易的JavaBe
 
 others包用来放一些不好归类的东西，比如定义字段的静态常量类。
 
-### 2. 建立持久层
+### 2. 配置JDBC
 
-因为上层的模块依赖于下层，所以我们需要自下而上地开发，先从Model开始。
+因为上层的模块依赖于下层，所以我们需要自下而上地开发，先从JDBC开始。
+
+在"applicationContext.xml"中追加jdbc参数的配置以及操作类的配置，稍后我们将按照这些配置来创建数据库。完整示例：
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+
+	<!-- Initialization for data source -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/springdemo" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+	</bean>
+
+	<!-- Definition of jdbc -->
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="DataSource" ref="dataSource" />
+	</bean>
+</beans>
+```
+
+这里的"ref"使用的是[基于设值方法的依赖注入](https://www.w3cschool.cn/wkspring/vneb1mm9.html)，ref即"reference"，它指向上面的"dataSource"对象。
+
+### 3. 建立持久层
 
 定义一个POJO，假设它有"id"和"name"两个属性，完整示例：
 ```
@@ -426,7 +462,7 @@ public class DemoMapper implements RowMapper<DemoVO> {
 
 需要注意的是，rs调用的方法与数据库中字段类型相匹配，入参和字段名相对应。
 
-### 3. 建立访问层
+### 4. 建立访问层
 
 先创建一个DAO接口，定义我们需要对数据库进行的操作集合，完整示例：
 ```
@@ -461,6 +497,7 @@ import com.example.springdemo.model.DemoMapper;
 import com.example.springdemo.model.DemoVO;
 
 public class DemoDaoImpl implements DemoDao {
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public int addDemo(int demoId, String demoName) {
@@ -491,7 +528,7 @@ public class DemoDaoImpl implements DemoDao {
 }
 ```
 
-这里我们没有直接对"jdbcTemplate"实例化，并设置jdbc相关参数，而是使用的"Autowired"注解，回想第三章我们提到的IoC，没错，后面我们将会在xml文件中对此进行配置。
+这里我们使用的"@Autowired"注解，回想第三章我们讲到的IoC，没错，它将会按照前面在xml文件中的配置进行实例化。
 
 "queryForObject"顾名思义查询一个对象，入参有固定格式，第一个是sql语句，第二个是数据库表和我们的POJO的映射关系，后面可以放不限数量的参数，分别对应sql语句中的通配符"?"，顺序不能出错。你将在"queryDemosByName"这一个方法中使用到"jdbcTemplate"的又一个方法"queryForList"。
 
@@ -550,7 +587,7 @@ public class DemoDaoImpl implements DemoDao {
 }
 ```
 
-### 4. 建立活动层
+### 5. 建立活动层
 
 先创建一个接口，里面定义一个方法，完整示例：
 ```
@@ -588,7 +625,7 @@ public class DemoServiceImpl implements DemoService {
 
 同样的，我们没有在此对"demoDao"实例化，而是使用IoC的方式进行依赖注入。
 
-### 5. 建立控制层
+### 6. 建立控制层
 
 我们对已经写好的控制层——DemoController进行一些修改，将其中的方法"test"的入参改为(int id)，并在业务逻辑调用Service的方法，完整示例：
 ```
@@ -621,43 +658,7 @@ public class DemoController {
 }
 ```
 
-这里使用的是基于构造方法的依赖注入。
-
-### 6. 配置JDBC
-
-我们在"applicationContext.xml"中追加jdbc参数的配置以及操作类的配置，完整示例：
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
-
-	<context:annotation-config />
-
-	<!-- Initialization for data source -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://localhost:3306/flymestudio?useUnicode=true&amp;characterEncoding=UTF-8" />
-		<property name="username" value="root" />
-		<property name="password" value="123456" />
-	</bean>
-
-	<!-- Definition of jdbc -->
-	<bean id="jdbcTemplate"
-		class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="DataSource" ref="dataSource" />
-	</bean>
-</beans>
-```
-
-这里的"ref"使用的是基于设值方法的依赖注入，ref即"reference"，它指向上面的"dataSource"对象。
+这里使用的是[基于构造方法的依赖注入](https://www.w3cschool.cn/wkspring/t7n41mm7.html)。
 
 ### 7. 工程结构
 
@@ -670,15 +671,58 @@ public class DemoController {
 ---
 ## 五、 使用注解来组合组件
 
+我们为DAO实现类中的"JdbcTemplate"实例使用了"@Autowired"注解，因此位于"applicationContext.xml"中的bean配置会自动对我们的"JdbcTemplate"对象进行实例化。
 
+我们为DAO实现类加上"@Repository"注解，告诉容器这是一个Dao，注解中"value"值等于DAO的实例名称，例如：'@Repository(value = "demoDao")'，这是因为我们声明的时候是声明的接口对象，但是创建对象必须以实现类去实例化，这样的设计符合"接口分离原则"，告诉容器：我在需要使用这个DAO时，你就去按照它的实现类给我找来。
+
+因此，我们在Service实现类中声明的DAO对象，便需要加上"@Resource"注解，并在注解中设置"name"的值为上面"value"的值，例如：'@Resource(name = "demoDao")'，尽管"@Resource"不是Spring特有的，而是属于"javax.annotation.Resource"，但Spring显然是支持它的。
+
+"@Repository"和"@Resource"的一一对应，便将Repository层和Service层联系在一起。
+
+然后我们为Service实现类加上"@Service"注解，告诉容器这是一个Service，按照上述的"接口分离原则"思想，我们同样会在声明这个Service接口对象的地方加一个注解。
+
+而声明这个接口对象的地方在Controller中，我们不是已经使用了"@Autowired"注解来实现基于构造方法的依赖注入吗？
+
+"@Service"和"@Autowired"的一一对应，便将Service层和Controller层联系在一起。
+
+Controller层已经使用了"@Controller"注解来告诉容器这是一个Controller。
+
+至此，我们的服务器端已经全部完成。
 
 ---
 ## 六、 编写数据库
 
+按照刚才配置的JDBC，我们的数据库参数为：
 
+- host：localhost
+- port：3306
+- database：springdemo
+- username：root
+- password：123456
+
+我们创建这个数据库，然后创建一张名为"demo"的表，并定义字段，别忘了表名和字段名应该与服务器端静态常量类定义的保持一致：
+```
+USE springdemo;
+
+DROP TABLE IF EXISTS `demo`;
+
+CREATE TABLE `demo` (
+  `id` int(11) NOT NULL,
+  `name` tinytext,
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8
+```
+
+然后插入一段数据：
+```
+USE springdemo;
+
+INSERT INTO demo VALUES(1,'test');
+```
 
 ---
 ## 七、 定义接口文档
+
 
 
 
@@ -713,4 +757,4 @@ public class DemoController {
 
 - [Chapter 6 —— 后记](Chapter6.md)
 
-- [Issues - 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
+- [Issues —— 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
