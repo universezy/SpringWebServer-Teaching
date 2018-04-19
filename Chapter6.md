@@ -2,12 +2,12 @@
 
 ## 一、 源码
 
-位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹，你可以把整个项目clone到本地，然后用eclipse导入工程文件夹来体验。
+本教程的示例工程源码位于[首页](https://github.com/frogfans/SpringWebServer-Teaching)的**SpringWebServer**工程文件夹，你可以把整个项目clone到本地，然后用eclipse导入工程文件夹来体验。
 
 ---
-## 二、 总结
+## 二、 心得体会
 
-- 时间充足的情况下，网上那些"空洞"的教程还是好好看，熟悉那些基本概念、模型、结构。
+- 时间充足的情况下，网上那些教程还是可以好好看看，参考一些，熟悉那些基本概念、模型、结构。
 
 - 急于完成项目的情况下，可以按照本文快速搭建一个基于SpringMVC的Java Web工程模版。
 
@@ -22,7 +22,9 @@
 
 - [servlet配置load-on-startup的作用](https://blog.csdn.net/xuke6677/article/details/44752207)
 
-- [Spring中<context:annotation-config/>的作用](https://blog.csdn.net/chenlong220192/article/details/46723561)
+- [Spring中&lt;context:annotation-config/&gt;的作用](https://blog.csdn.net/chenlong220192/article/details/46723561)
+
+- [SpringMVC注解@RequestParam全面解析](https://www.cnblogs.com/jpfss/p/7910026.html)
 
 ---
 
@@ -39,3 +41,5 @@
 - [Chapter 5 —— 编写工程](Chapter5.md)
 
 - Chapter 6 —— 后记
+
+- [Issues —— 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
