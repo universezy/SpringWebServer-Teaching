@@ -1,6 +1,8 @@
 # Chapter 4 —— 剖析SpringMVC架构
 
-接下来我们开始学习SpringMVC。
+## 前言
+
+接下来我们开始学习SpringMVC架构，它是整个后端工程的核心思想，在此之前，你需要确保自己已经掌握了MVC的思想。
 
 ## 一、 架构图
 
@@ -11,7 +13,7 @@
 
 ### 1. 从层次来说
 
-首先，整个架构大致可以看成一个B/S架构，我们只需关注广义的"S"部分中的"Server"部分。
+首先，整个架构大致可以看成一个B/S架构(把数据库也算进了服务端，因为相对用户来说，它不在乎你服务端还要和谁进行交互)，我们只需关注广义的"S"部分中的"Server"部分。(这幅架构图同样完全适用于C/S架构)
 
 服务器端，自上而下，大致分为四个层次：
 
@@ -79,3 +81,5 @@
 - [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)
+
+- [Issues - 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)

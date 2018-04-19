@@ -1,5 +1,9 @@
 # Chapter 2 —— 准备工作
 
+## 前言
+
+牢骚发完了，现在开始正式学习。
+
 ## 一、 建议
 
 如果读者使用过servlet，那么对其中的
@@ -66,3 +70,5 @@ SpringMVC是一个开发架构，MVC知道吧，model，view，controller，Spri
 - [Chapter 5 —— 编写工程](Chapter5.md)
 
 - [Chapter 6 —— 后记](Chapter6.md)
+
+- [Issues - 问题或反馈](https://github.com/frogfans/SpringWebServer-Teaching/issues)
