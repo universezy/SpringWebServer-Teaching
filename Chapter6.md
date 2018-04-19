@@ -22,7 +22,7 @@
 
 - [servlet配置load-on-startup的作用](https://blog.csdn.net/xuke6677/article/details/44752207)
 
-- [Spring中<context:annotation-config/>的作用](https://blog.csdn.net/chenlong220192/article/details/46723561)
+- [Spring中&lt;context:annotation-config/&gt;的作用](https://blog.csdn.net/chenlong220192/article/details/46723561)
 
 - [SpringMVC注解@RequestParam全面解析](https://www.cnblogs.com/jpfss/p/7910026.html)
 
