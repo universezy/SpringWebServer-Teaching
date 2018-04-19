@@ -13,6 +13,7 @@ eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的�
 
 为了便于读者和本文对照，我建议读者将"Group Id"设置为"com.example"，"Artifact Id"设为"springdemo"，"Package"会自动生成。
 
+---
 ### 2. 依赖资源
 
 然后在pom.xml中依赖Spring相关、MySQL相关、JDBC相关，JSON相关的jar包，得到这样：
@@ -99,6 +100,7 @@ eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的�
 
 你也可以通过[Maven仓库](http://mvnrepository.com/)去查找需要的版本进行依赖。
 
+---
 ### 3. 实现Controller
 
 在src/main/java这个文件夹下创建一个名为"com.example.springdemo"的package。
@@ -130,6 +132,7 @@ public class DemoController {
 }
 ```
 
+---
 ### 4. 配置xml文件
 
 找到"/webapp/WEB-INF"下的"web.xml"文件，定义一个DispatcherServlet，这里用框架自带的：
@@ -254,6 +257,7 @@ public class DemoController {
 
 ![](assets/ch5-1.jpg)
 
+---
 ### 5. 运行
 
 工程右键 - Run As - Run on Server，选择你的Tomcat服务器，如果一切顺利的话，eclipse会自动弹出网页，如果没有弹出，可以在浏览器输入：http://localhost:8080/springdemo/
@@ -373,6 +377,7 @@ model包存放的是用来对应数据库表的POJO(POJO是非常简易的JavaBe
 
 others包用来放一些不好归类的东西，比如定义字段的静态常量类。
 
+---
 ### 2. 配置JDBC
 
 因为上层的模块依赖于下层，所以我们需要自下而上地开发，先从JDBC开始。
@@ -411,6 +416,7 @@ others包用来放一些不好归类的东西，比如定义字段的静态常�
 
 这里的"ref"使用的是[基于设值方法的依赖注入](https://www.w3cschool.cn/wkspring/vneb1mm9.html)，ref即"reference"，它指向上面的"dataSource"对象。
 
+---
 ### 3. 建立持久层
 
 定义一个POJO，假设它有"id"和"name"两个属性，完整示例：
@@ -462,6 +468,7 @@ public class DemoMapper implements RowMapper<DemoVO> {
 
 需要注意的是，rs调用的方法与数据库中字段类型相匹配，入参和字段名相对应。
 
+---
 ### 4. 建立访问层
 
 先创建一个DAO接口，定义我们需要对数据库进行的操作集合，完整示例：
@@ -587,6 +594,7 @@ public class DemoDaoImpl implements DemoDao {
 }
 ```
 
+---
 ### 5. 建立活动层
 
 先创建一个接口，里面定义一个方法，完整示例：
@@ -625,6 +633,7 @@ public class DemoServiceImpl implements DemoService {
 
 同样的，我们没有在此对"demoDao"实例化，而是使用IoC的方式进行依赖注入。
 
+---
 ### 6. 建立控制层
 
 我们对已经写好的控制层——DemoController进行一些修改，将其中的方法"test"的入参改为(int id)，并在业务逻辑调用Service的方法，完整示例：
@@ -660,6 +669,7 @@ public class DemoController {
 
 这里使用的是[基于构造方法的依赖注入](https://www.w3cschool.cn/wkspring/t7n41mm7.html)。
 
+---
 ### 7. 工程结构
 
 至此，我们已经完成了所有的组件，下面是目前的工程结构图：
