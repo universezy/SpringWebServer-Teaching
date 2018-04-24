@@ -753,22 +753,23 @@ INSERT INTO demo VALUES(1,'test');
 >
 > - params:
 >
->|Key|Type|Explain|
->| :-: | :- | :- |
->|id|int|编号|
+> |Key|Type|Explain|
+> | :-: | :- | :- |
+> |id|int|编号|
 >
->- example: http://localhost:8080/springdemo/demo/test?id=1
+> - example: http://localhost:8080/springdemo/demo/test?id=1
 >
->## Response
+> ## Response
 >
->- params:
+> - params:
 >
->|Key|Type|Explain|
->| :-: | :- | :- |
->|id|int|编号|
->|name|String|名称|
+> |Key|Type|Explain|
+> | :-: | :- | :- |
+> |id|int|编号|
+> |name|String|名称|
 >
->- example: {"name":"test","id":1}
+> - example: {"name":"test","id":1}
+>
 
 ---
 ## 八、 测试接口
