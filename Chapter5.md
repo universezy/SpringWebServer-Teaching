@@ -17,7 +17,7 @@ eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的�
 ### 2. 依赖资源
 
 然后在pom.xml中依赖Spring相关、MySQL相关、JDBC相关，JSON相关的jar包，得到这样：
-```
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -114,7 +114,7 @@ eclipse创建一个Maven工程，选择webapp类型，具体步骤参考我的�
 添加一个处理请求的方法，同样加上"@RequestMapping"注解并设置url和请求方法，例如："@RequestMapping(value = "/test", method = RequestMethod.GET)"，那么此方法映射的请求url相对路径就是Controller的路径再拼接方法的路径，接收的请求方法是GET类型。
 
 完整示例：
-```
+```java
 package com.example.springdemo;
 
 import org.springframework.stereotype.Controller;
@@ -136,7 +136,7 @@ public class DemoController {
 ### 4. 配置xml文件
 
 找到"/webapp/WEB-INF"下的"web.xml"文件，定义一个DispatcherServlet，这里用框架自带的：
-```
+```xml
 <servlet>
 	<servlet-name>demo</servlet-name>
 	<servlet-class>
@@ -149,7 +149,7 @@ public class DemoController {
 名字叫"demo"，"load-on-startup"表示启动顺序，大于或等于0时表示Spring容器启动时便启动这个servlet，数字越小的，启动优先级越高。
 
 然后定义这个名叫"demo"的DispatcherServlet负责分发哪些url的请求，这里我们让它分发所有的请求：
-```
+```xml
 <servlet-mapping>
 	<servlet-name>demo</servlet-name>
 	<url-pattern>/</url-pattern>
@@ -157,14 +157,14 @@ public class DemoController {
 ```
 
 负责请求分发的servlet定义好了，我们还要告诉它处理这些请求的Controller在哪里，因此我们需要创建一个用这里的servlet名称为前缀，"-servlet"为后缀的xml文件，即"demo-servlet.xml"(这是固定格式，如果实在想用自定义名称的，需要另外配置，读者可以自行查阅相关教程)，并在里面告诉容器去哪里找Controller：
-```
+```xml
 <context:component-scan base-package="com.example.springdemo" />
 ```
 
 这一行代码，告诉容器扫描"com.example.springdemo"这个包下面所有的Controller，其实不止是Controller，其他的组件也是在这个扫描范围内的，比如Service。
 
 完整示例：
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -183,12 +183,12 @@ public class DemoController {
 接下来回想我们在第三章从xml文件获取bean时用到的"ApplicationContext"，同样，我们即使不在代码中直接出现这个获取操作，也需要通过xml文件来定义这个操作。
 
 创建一个名为"applicationContext"的xml文件，里面就可以写各种复用的bean了。由于我们将要用到很多注解，因此为了让容器认识这些注解，还得在这个文件里加入一行：
-```
+```xml
 <context:annotation-config />
 ```
 
 完整示例：
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -204,7 +204,7 @@ public class DemoController {
 ```
 
 写了这个加载bean的文件，但是容器不知道要去调用这个文件啊，所以又回到"web.xml"中，加上这两段：
-```
+```xml
 <context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>
@@ -218,7 +218,7 @@ public class DemoController {
 告诉容器，先调用这个文件去执行相关设置，然后监听我加载bean的需求。
 
 至此，完整的web.xml示例：
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4"
 	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -278,7 +278,7 @@ public class DemoController {
 ## 二、 接收前端请求
 
 在Controller的请求方法中使用"@RequestParam"注解可以设置接收的请求参数，例如："@RequestParam(name = "content", required = false) String string"，这一段告诉容器，这个方法接收一个参数名为"content"的String类型参数，它的值赋给"string"，由"required = false"可知，这个参数不是必须的，完整示例：
-```
+```java
 package com.example.springdemo;
 
 import org.springframework.stereotype.Controller;
@@ -302,7 +302,7 @@ public class DemoController {
 ![](assets/ch5-4.png)
 
 通常我们也可以简化这一段注解，省去括号内容，它意味着入参即为请求的参数类型和名称，并且是必须的，完整示例：
-```
+```java
 package com.example.springdemo;
 
 import org.springframework.stereotype.Controller;
@@ -325,7 +325,7 @@ public class DemoController {
 ## 三、 返回服务端的响应
 
 在Controller的请求方法前使用"@ResponseBody"注解，告诉容器我们这个方法要返回响应体，完整示例：
-```
+```java
 package com.example.springdemo;
 
 import org.springframework.stereotype.Controller;
@@ -383,7 +383,7 @@ others包用来放一些不好归类的东西，比如定义字段的静态常�
 因为上层的模块依赖于下层，所以我们需要自下而上地开发，先从JDBC开始。
 
 在"applicationContext.xml"中追加jdbc参数的配置以及操作类的配置，稍后我们将按照这些配置来创建数据库。完整示例：
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -420,7 +420,7 @@ others包用来放一些不好归类的东西，比如定义字段的静态常�
 ### 3. 建立持久层
 
 定义一个POJO，假设它有"id"和"name"两个属性，完整示例：
-```
+```java
 package com.example.springdemo.model;
 
 public class DemoVO {
@@ -446,7 +446,7 @@ public class DemoVO {
 ```
 
 然后我们需要定义一个和数据库表的字段映射关系，这将在后面的jdbc操作中使用到，完整示例：
-```
+```java
 package com.example.springdemo.model;
 
 import java.sql.ResultSet;
@@ -472,7 +472,7 @@ public class DemoMapper implements RowMapper<DemoVO> {
 ### 4. 建立访问层
 
 先创建一个DAO接口，定义我们需要对数据库进行的操作集合，完整示例：
-```
+```java
 package com.example.springdemo.repository;
 
 import java.util.List;
@@ -493,7 +493,7 @@ public interface DemoDao {
 ```
 
 然后创建一个实现类，实现这个DAO接口，这里我仅以"queryDemoById"这个方法为例，实现具体的业务逻辑，因为涉及到了jdbc操作，所以需要Spring框架的"JdbcTemplate"类的帮助，完整示例：
-```
+```java
 package com.example.springdemo.repository;
 
 import java.util.List;
@@ -540,7 +540,7 @@ public class DemoDaoImpl implements DemoDao {
 "queryForObject"顾名思义查询一个对象，入参有固定格式，第一个是sql语句，第二个是数据库表和我们的POJO的映射关系，后面可以放不限数量的参数，分别对应sql语句中的通配符"?"，顺序不能出错。你将在"queryDemosByName"这一个方法中使用到"jdbcTemplate"的又一个方法"queryForList"。
 
 为了便于今后的维护，建议读者把sql语句中出现的表名、字段名，以静态常量的形式替换，静态常量类便可以放在others这个包下面，完整示例：
-```
+```java
 package com.example.springdemo.others;
 
 public class Constant {
@@ -552,7 +552,7 @@ public class Constant {
 }
 ```
 
-```
+```java
 package com.example.springdemo.repository;
 
 import java.util.List;
@@ -598,7 +598,7 @@ public class DemoDaoImpl implements DemoDao {
 ### 5. 建立活动层
 
 先创建一个接口，里面定义一个方法，完整示例：
-```
+```java
 package com.example.springdemo.service;
 
 public interface DemoService {
@@ -607,7 +607,7 @@ public interface DemoService {
 ```
 
 然后创建一个实现类，实现这个方法，业务逻辑为调用DAO后获取的数据进行整合，使用JSON格式便于前端处理，完整示例：
-```
+```java
 package com.example.springdemo.service;
 
 import javax.annotation.Resource;
@@ -637,7 +637,7 @@ public class DemoServiceImpl implements DemoService {
 ### 6. 建立控制层
 
 我们对已经写好的控制层——DemoController进行一些修改，将其中的方法"test"的入参改为(int id)，并在业务逻辑调用Service的方法，完整示例：
-```
+```java
 package com.example.springdemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -711,7 +711,7 @@ Controller层已经使用了"@Controller"注解来告诉容器这是一个Contro
 - password：123456
 
 我们创建这个数据库，然后创建一张名为"demo"的表，并定义字段，别忘了表名和字段名应该与服务器端静态常量类定义的保持一致：
-```
+```sql
 USE springdemo;
 
 DROP TABLE IF EXISTS `demo`;
@@ -724,7 +724,7 @@ CREATE TABLE `demo` (
 ```
 
 然后插入一段数据：
-```
+```sql
 USE springdemo;
 
 INSERT INTO demo VALUES(1,'test');

@@ -8,7 +8,7 @@
 ## 一、 建议
 
 如果读者使用过servlet，那么对其中的
-```
+```java
 @Override
 public void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 }

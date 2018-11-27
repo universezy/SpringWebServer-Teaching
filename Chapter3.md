@@ -5,7 +5,7 @@
 何为IoC？或者说，怎么理解控制反转，由字面翻译意思：把控制权反过来。
 
 我们通常操作一个对象的过程是：声明-创建(可能还需要初始化设置一大堆参数)-使用，就像这样：
-```
+```java
 package com.zengyu.demo;
 
 public class Obj {
@@ -26,7 +26,7 @@ public class Obj {
 }
 ```
 
-```
+```java
 package com.zengyu.demo;
 
 public class IoCDemo {
@@ -48,7 +48,7 @@ public class IoCDemo {
 于是，IoC的概念便诞生了。我们把对象的生死大权交给容器，这个容器就是Spring容器，由它来负责各种对象的创建和回收，我们只需要在声明对象的时候，告诉容器："喂，这个对象给我来一份。"，具体的代码就像这样：
 
 定义实例的属性：
-```
+```xml
 <bean id="obj" class="com.zengyu.demo.Obj">
     <property name="id" value="1"/>
     <property name="name" value="IoC Demo"/>
@@ -56,7 +56,7 @@ public class IoCDemo {
 ```
 
 然后使用实例：
-```
+```java
 package com.zengyu.demo;
 
 import org.springframework.context.ApplicationContext;
@@ -74,7 +74,7 @@ public class IoCDemo {
 ```
 
 看到这里，读者便会质疑，你这不就类似于工厂模式？还不是在new，只是省去了setter，是的，我们先通过"将内部属性用外部xml文件来配置"的方式进行了第一步优化，这就相当于把控制权交给了Framework，这里用到的Java的反射机制。接下来是第二步，我们使用"[@Autowired](https://www.w3cschool.cn/wkspring/rw2h1mmj.html)"注解，同样的，注解本质上也是使用的反射机制：
-```
+```java
 package com.zengyu.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;

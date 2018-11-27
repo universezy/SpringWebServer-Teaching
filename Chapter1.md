@@ -23,7 +23,7 @@
 作者我学习Spring是为了做纯后端开发，配合前端做接口和数据库处理。而网上教程实现的整体功能往往不是纯业务请求处理。例如：
 
 ### 1.
-```
+```java
 public class MainApp {
    public static void main(String[] args) {
       ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
@@ -42,7 +42,7 @@ Your Message : Hello World!
 
 ---
 ### 2.
-```
+```java
 @Controller
 @RequestMapping("/hello")
 public class HelloController{
@@ -54,7 +54,7 @@ public class HelloController{
 }
 ```
 
-```
+```html
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
